@@ -19,7 +19,7 @@ public class Knight extends Piece {
 
 	
 	Knight(final int piecePosition, final Alliance pieceAlliance) {
-		super(piecePosition, pieceAlliance);
+		super(piecePosition, pieceAlliance, PieceType.KNIGHT, true);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -99,6 +99,24 @@ public class Knight extends Piece {
 	// tiles num: 35
 	// 35 - 6... legal move
 	// 
+
+	@Override
+	public int locationBonus() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Piece movePiece(Move move) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Move> calculateLegalMoves(Board board) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

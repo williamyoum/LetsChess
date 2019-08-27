@@ -14,11 +14,44 @@ import com.chess.engine.board.Move.JustMove;
 import com.google.common.collect.ImmutableList;
 
 public class King extends Piece{
-	King(final int piecePosition, final Alliance pieceAlliance) {
-		super(piecePosition, pieceAlliance);
+	
+	private static final int[] ALL_MOVES = {8,-8, -1, 1, -9, -7, 7, 9}; // keep in mind, Queen is Rook.java + Bishop.java combined
+	boolean isCastled;
+	boolean isKingSideCastlePossible;
+	boolean isQueenSideCastlePossible;
+		// these used to be private... figure out why it works when public and not private...
+	
+	
+	public King(final int piecePosition, 
+			    final Alliance pieceAlliance,
+				final boolean isKingSideCastlePossible,
+				final boolean isQueenSideCastlePossible) {
+		super(piecePosition, pieceAlliance, PieceType.KING, true);
+		this.isCastled = false;
+		this.isKingSideCastlePossible = isKingSideCastlePossible;
+		this.isQueenSideCastlePossible = isQueenSideCastlePossible;
+		
 		// TODO Auto-generated constructor stub
 	}
-	private static final int[] ALL_MOVES = {8,-8, -1, 1, -9, -7, 7, 9}; // keep in mind, Queen is Rook.java + Bishop.java combined
+
+	
+	public King(int piecePosition, 
+			    Alliance pieceAlliance,
+				boolean isFirstMove,
+				boolean isCastled,
+				boolean isKingSideCastlePossible,
+				boolean isQueenSideCastlePossible){
+		
+		super(piecePosition, pieceAlliance, PieceType.KING, isFirstMove);
+		this.isCastled = isCastled;
+		this.isKingSideCastlePossible = isKingSideCastlePossible;
+		this.isQueenSideCastlePossible = isQueenSideCastlePossible;
+	}
+	
+	
+	
+	
+
 
 	@Override
 	public Collection<Move> findLegalMoves(Board board) {
@@ -61,5 +94,26 @@ public class King extends Piece{
 	}
 	private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
 		return BoardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == 1) || (candidateOffset == 9) || (candidateOffset == -7);
+	}
+
+
+	@Override
+	public int locationBonus() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public Piece movePiece(Move move) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Collection<Move> calculateLegalMoves(Board board) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

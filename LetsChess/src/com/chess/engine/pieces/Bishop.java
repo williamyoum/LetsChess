@@ -18,7 +18,7 @@ public class Bishop extends Piece {
 														// they are relative to the current position.
 	private static final int[] ALL_MOVES = {-9, -7, 7, 9}; 
 	Bishop(final int piecePosition, final Alliance pieceAlliance) { // this method takes the bishop's position, color.
-		super(piecePosition, pieceAlliance);
+		super(piecePosition, pieceAlliance, PieceType.BISHOP, true);
 	}
 	@Override
 	public Collection<Move> findLegalMoves(Board board) { // this is a collection that uses findLegalMoves to calculate the legal moves
@@ -72,5 +72,20 @@ public class Bishop extends Piece {
 		
 		return BoardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == 9 || candidateOffset == -7);
 		
+	}
+	@Override
+	public int locationBonus() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public Piece movePiece(Move move) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Collection<Move> calculateLegalMoves(Board board) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

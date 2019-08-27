@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableList;
 
 public class Rook extends Piece{
 	Rook(final int piecePosition, final Alliance pieceAlliance) {
-		super(piecePosition, pieceAlliance);
+		super(piecePosition, pieceAlliance, PieceType.ROOK, true);
 		// TODO Auto-generated constructor stub
 	}
 	private static final int[] ALL_MOVES = {8,-8, -1, 1};
@@ -73,5 +73,23 @@ public class Rook extends Piece{
 		// on first column
 		// rook can go up, left, down... not right
 		
+	}
+
+	@Override
+	public int locationBonus() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Piece movePiece(Move move) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Move> calculateLegalMoves(Board board) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

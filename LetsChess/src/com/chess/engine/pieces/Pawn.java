@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableList;
 
 	public class Pawn extends Piece{
 		Pawn(final int piecePosition, final Alliance pieceAlliance) {
-			super(piecePosition, pieceAlliance);
+			super(piecePosition, pieceAlliance, PieceType.PAWN, true);
 			// TODO Auto-generated constructor stub
 		}
 		private static final int[] ALL_MOVES = {-8}; // is -8 up or down? im assuming the og set the A8 tile as the 0th tile...
@@ -64,6 +64,30 @@ import com.google.common.collect.ImmutableList;
 			}
 			return ImmutableList.copyOf(legalMoves);
 	}
+
+
+
+		@Override
+		public int locationBonus() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+
+
+		@Override
+		public Piece movePiece(Move move) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+
+		@Override
+		public Collection<Move> calculateLegalMoves(Board board) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 		// implement pawn promotion
 		

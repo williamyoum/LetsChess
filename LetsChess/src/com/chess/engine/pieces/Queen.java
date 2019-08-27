@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableList;
 
 public class Queen extends Piece{
 	Queen(final int piecePosition, final Alliance pieceAlliance) {
-		super(piecePosition, pieceAlliance);
+		super(piecePosition, pieceAlliance, PieceType.QUEEN, true);
 		// TODO Auto-generated constructor stub
 	}
 	private static final int[] ALL_MOVES = {8,-8, -1, 1, -9, -7, 7, 9}; // keep in mind, Queen is Rook.java + Bishop.java combined
@@ -63,5 +63,20 @@ public class Queen extends Piece{
 	private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
 		return BoardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == 1) || (candidateOffset == 9);
 		// by nature of the queen, it can hit the -7 tile
+	}
+	@Override
+	public int locationBonus() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public Piece movePiece(Move move) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Collection<Move> calculateLegalMoves(Board board) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
