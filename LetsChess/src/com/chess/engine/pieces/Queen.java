@@ -56,10 +56,12 @@ public class Queen extends Piece{
 	}
 	// edge cases
 	private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {	
-		return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -1) || (candidateOffset == -9);
+		return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -1) || (candidateOffset == -9); 
+		// by nature of the queen, it can hit the +7 tile
 
 	}
 	private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
 		return BoardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == 1) || (candidateOffset == 9);
+		// by nature of the queen, it can hit the -7 tile
 	}
 }
