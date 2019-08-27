@@ -11,7 +11,7 @@ import com.chess.engine.board.Move;
 import com.google.common.collect.ImmutableList;
 
 public class Rook extends Piece{
-	Rook(int piecePosition, Alliance pieceAlliance) {
+	Rook(final int piecePosition, final Alliance pieceAlliance) {
 		super(piecePosition, pieceAlliance);
 		// TODO Auto-generated constructor stub
 	}

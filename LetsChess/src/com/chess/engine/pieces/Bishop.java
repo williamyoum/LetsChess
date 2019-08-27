@@ -17,7 +17,7 @@ public class Bishop extends Piece {
 														// these are the possible moves the bishop can make. 
 														// they are relative to the current position.
 	private static final int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9, -7, 7, 9}; 
-	Bishop(int piecePosition, Alliance pieceAlliance) { // this method takes the bishop's position, color.
+	Bishop(final int piecePosition, final Alliance pieceAlliance) { // this method takes the bishop's position, color.
 		super(piecePosition, pieceAlliance);
 	}
 	@Override
