@@ -8,6 +8,9 @@ import com.chess.engine.Alliance;
 import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
+import com.chess.engine.board.Tile;
+import com.chess.engine.board.Move.AttackMove;
+import com.chess.engine.board.Move.JustMove;
 import com.google.common.collect.ImmutableList;
 
 public class Rook extends Piece{
@@ -15,23 +18,46 @@ public class Rook extends Piece{
 		super(piecePosition, pieceAlliance);
 		// TODO Auto-generated constructor stub
 	}
-
-	private static final int[] MOVE_VECTOR_COORDINATES = {8,-8, -1, 1};
+	private static final int[] ALL_MOVES = {8,-8, -1, 1};
 
 	@Override
 	public Collection<Move> findLegalMoves(Board board) {
 		List<Move> legalMoves = new ArrayList<>();
-		for(final int candidateCoordinateOffset: MOVE_VECTOR_COORDINATES) {
-			int candidateDestinationCoordinate = this.piecePosition;
+		for(final int candidateCoordinateOffset: ALL_MOVES) {
+			int focusPosition = this.piecePosition;
+		
+			while(BoardUtils.isValidTileCoordinate(focusPosition)) {
+				if(isFirstColumnExclusion(focusPosition, candidateCoordinateOffset)
+						|| isEighthColumnExclusion(focusPosition, candidateCoordinateOffset)) {
+					break;
+				}
+			focusPosition += candidateCoordinateOffset; // relook at other moves
+			}
+			if(BoardUtils.isValidTileCoordinate(focusPosition)) {
+				final Tile candidateDestinationTile = board.getTile(focusPosition);
+				if(!candidateDestinationTile.isOccupied()) {
+					legalMoves.add(new JustMove(board, this, focusPosition));
+					// get an unoccupied tile from the board and add it to the legal move list.
+				}
+				else {
+					// attacking legal move
+					// get alliance of piece already on the tile
+					// if the alliance is not equal to the currKnight, this is an attacking move
+					final Piece pieceOnTile = candidateDestinationTile.getPiece();
+					final Alliance pieceAlliance = pieceOnTile.getPieceAlliance();
+				
+					if(this.pieceAlliance != pieceAlliance) {
+						legalMoves.add(new AttackMove(board, this, focusPosition, pieceOnTile));
+					}
+					break;
+				}
+			}
 		}
-		while(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
-			if(isFirstColumnExclusion())
-		}
-		
-		
-		
+
 		return ImmutableList.copyOf(legalMoves);
 	}
+		
+	// edge cases
 	
 	private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
 		

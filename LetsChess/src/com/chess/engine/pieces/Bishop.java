@@ -16,7 +16,7 @@ import com.chess.engine.board.Move.JustMove;
 public class Bishop extends Piece {
 														// these are the possible moves the bishop can make. 
 														// they are relative to the current position.
-	private static final int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9, -7, 7, 9}; 
+	private static final int[] ALL_MOVES = {-9, -7, 7, 9}; 
 	Bishop(final int piecePosition, final Alliance pieceAlliance) { // this method takes the bishop's position, color.
 		super(piecePosition, pieceAlliance);
 	}
@@ -24,20 +24,20 @@ public class Bishop extends Piece {
 	public Collection<Move> findLegalMoves(Board board) { // this is a collection that uses findLegalMoves to calculate the legal moves
 		List<Move> legalMoves = new ArrayList<>();
 	// this is the loop for the whole list of possible legal moves
-		for(final int candidateCoordinateOffset: CANDIDATE_MOVE_VECTOR_COORDINATES) { // loop through each of the possible moves and validate
-			int candidateDestinationCoordinate = this.piecePosition; // candidateDestinationCoordinate holds the currPosition
-			while(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) { //			
+		for(final int candidateCoordinateOffset: ALL_MOVES) { // loop through each of the possible moves and validate
+			int focusPosition = this.piecePosition; // focusPosition holds the currPosition
+			while(BoardUtils.isValidTileCoordinate(focusPosition)) { //			
 				
-				if(isFirstColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset) 
-				|| isEighthColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset)) {
+				if(isFirstColumnExclusion(focusPosition, candidateCoordinateOffset) 
+				|| isEighthColumnExclusion(focusPosition, candidateCoordinateOffset)) {
 					break;
 				}
-				candidateDestinationCoordinate += candidateCoordinateOffset;  // make the position + offset become legal move
+				focusPosition += candidateCoordinateOffset;  // make the position + offset become legal move
 				// this is now one of the legal moves
-				if(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
-					final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
+				if(BoardUtils.isValidTileCoordinate(focusPosition)) {
+					final Tile candidateDestinationTile = board.getTile(focusPosition);
 					if(!candidateDestinationTile.isOccupied()) {
-						legalMoves.add(new JustMove(board, this, candidateDestinationCoordinate));
+						legalMoves.add(new JustMove(board, this, focusPosition));
 						// get an unoccupied tile from the board and add it to the legal move list.
 					}
 					else {
@@ -48,11 +48,10 @@ public class Bishop extends Piece {
 						final Alliance pieceAlliance = pieceOnTile.getPieceAlliance();
 					
 						if(this.pieceAlliance != pieceAlliance) {
-							legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceOnTile));
+							legalMoves.add(new AttackMove(board, this, focusPosition, pieceOnTile));
 						}
 						break;
 					}
-					
 					// if(this.pieceAlliance == pieceAlliance){
 					// 		move on, because this is not a legal move. you cannot go where your team is.
 					// }

@@ -14,7 +14,7 @@ import com.google.common.collect.ImmutableList;
 
 public class Knight extends Piece {
 
-	private final static int[] CANDIDATE_MOVE_COORDINATES = {-17, -15, -10, -6, 6, 10, 15, 17};
+	private final static int[] ALL_MOVES = {-17, -15, -10, -6, 6, 10, 15, 17};
 	//private int isValidTileCoordinate;
 
 	
@@ -30,7 +30,7 @@ public class Knight extends Piece {
 		// loop through all of the candidate options
 		
 		final List<Move> legalMoves = new ArrayList<>();
-		for(final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
+		for(final int currentCandidateOffset : ALL_MOVES) {
 			final int candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
 			// if not occupied, legal move.
 			// if occupied, then..
