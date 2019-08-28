@@ -20,6 +20,10 @@ public class Bishop extends Piece {
 	Bishop(final int piecePosition, final Alliance pieceAlliance) { // this method takes the bishop's position, color.
 		super(piecePosition, pieceAlliance, PieceType.BISHOP, true);
 	}
+	
+	Bishop(final int piecePosition, final Alliance pieceAlliance, boolean isFirstMove) { // this method takes the bishop's position, color.
+		super(piecePosition, pieceAlliance, PieceType.BISHOP, isFirstMove);
+	}
 	@Override
 	public Collection<Move> findLegalMoves(Board board) { // this is a collection that uses findLegalMoves to calculate the legal moves
 		List<Move> legalMoves = new ArrayList<>();

@@ -13,12 +13,21 @@ import com.chess.engine.board.Move.AttackMove;
 import com.chess.engine.board.Move.JustMove;
 import com.google.common.collect.ImmutableList;
 
-	public class Pawn extends Piece{
-		Pawn(final int piecePosition, final Alliance pieceAlliance) {
+	public final class Pawn extends Piece{
+		
+		public Pawn(int piecePosition, Alliance pieceAlliance) {
 			super(piecePosition, pieceAlliance, PieceType.PAWN, true);
 			// TODO Auto-generated constructor stub
 		}
-		private static final int[] ALL_MOVES = {-8}; // is -8 up or down? im assuming the og set the A8 tile as the 0th tile...
+		
+		public Pawn(int piecePosition, Alliance pieceAlliance, boolean isFirstMove) {
+			super(piecePosition, pieceAlliance, PieceType.PAWN, isFirstMove);
+		}
+		
+		
+		
+		private static final int[] ALL_MOVES = {8, 16, 7, 9 }; // is -8 up or down? im assuming the og set the A8 tile as the 0th tile... 
+															  // nvm 0th tile is A1.
 
 		
 		

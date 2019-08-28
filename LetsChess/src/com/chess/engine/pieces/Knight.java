@@ -22,6 +22,11 @@ public class Knight extends Piece {
 		super(piecePosition, pieceAlliance, PieceType.KNIGHT, true);
 		// TODO Auto-generated constructor stub
 	}
+
+	Knight(final int piecePosition, final Alliance pieceAlliance, boolean isFirstMove) {
+		super(piecePosition, pieceAlliance, PieceType.KNIGHT, isFirstMove);
+		// TODO Auto-generated constructor stub
+	}
 	
 	@Override
 	public Collection<Move> findLegalMoves(final Board board) {

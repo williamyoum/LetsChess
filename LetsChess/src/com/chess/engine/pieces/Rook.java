@@ -14,10 +14,19 @@ import com.chess.engine.board.Move.JustMove;
 import com.google.common.collect.ImmutableList;
 
 public class Rook extends Piece{
-	Rook(final int piecePosition, final Alliance pieceAlliance) {
+	
+	
+	public Rook(int piecePosition, Alliance pieceAlliance) {
 		super(piecePosition, pieceAlliance, PieceType.ROOK, true);
 		// TODO Auto-generated constructor stub
 	}
+	public Rook(int piecePosition, Alliance pieceAlliance, boolean isFirstMove) {
+		super(piecePosition, pieceAlliance, PieceType.ROOK, isFirstMove);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
 	private static final int[] ALL_MOVES = {8,-8, -1, 1};
 
 	@Override

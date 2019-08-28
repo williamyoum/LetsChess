@@ -18,6 +18,10 @@ public class Queen extends Piece{
 		super(piecePosition, pieceAlliance, PieceType.QUEEN, true);
 		// TODO Auto-generated constructor stub
 	}
+	Queen(final int piecePosition, final Alliance pieceAlliance, boolean isFirstMove) {
+		super(piecePosition, pieceAlliance, PieceType.QUEEN, isFirstMove);
+		// TODO Auto-generated constructor stub
+	}
 	private static final int[] ALL_MOVES = {8,-8, -1, 1, -9, -7, 7, 9}; // keep in mind, Queen is Rook.java + Bishop.java combined
 
 	@Override

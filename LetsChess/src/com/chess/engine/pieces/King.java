@@ -20,8 +20,6 @@ public class King extends Piece{
 	boolean isKingSideCastlePossible;
 	boolean isQueenSideCastlePossible;
 		// these used to be private... figure out why it works when public and not private...
-	
-	
 	public King(final int piecePosition, 
 			    final Alliance pieceAlliance,
 				final boolean isKingSideCastlePossible,
@@ -33,8 +31,6 @@ public class King extends Piece{
 		
 		// TODO Auto-generated constructor stub
 	}
-
-	
 	public King(int piecePosition, 
 			    Alliance pieceAlliance,
 				boolean isFirstMove,
@@ -47,12 +43,6 @@ public class King extends Piece{
 		this.isKingSideCastlePossible = isKingSideCastlePossible;
 		this.isQueenSideCastlePossible = isQueenSideCastlePossible;
 	}
-	
-	
-	
-	
-
-
 	@Override
 	public Collection<Move> findLegalMoves(Board board) {
 		List<Move> legalMoves = new ArrayList<>();
@@ -90,27 +80,20 @@ public class King extends Piece{
 	// edge cases
 	private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {	
 		return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -1) || (candidateOffset == -9) || (candidateOffset == 7);
-
 	}
 	private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
 		return BoardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == 1) || (candidateOffset == 9) || (candidateOffset == -7);
 	}
-
-
 	@Override
 	public int locationBonus() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 	@Override
 	public Piece movePiece(Move move) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 	@Override
 	public Collection<Move> calculateLegalMoves(Board board) {
 		// TODO Auto-generated method stub
