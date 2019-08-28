@@ -5,20 +5,27 @@ import com.chess.engine.pieces.Piece;
 public abstract class Move {
 
 	// isLegalMove method
-	
-//	public static isValidMove(){
-//		return null;
-//	}
-	
+
+	//	public static isValidMove(){
+	//		return null;
+	//	}
+
 	// makeMove method
-	
+
 	// regular move or attacking move?
-	
+
 	// en passant? 
 	// castling? 
 	// promoting a pawn?
-	
-	
+
+	public class MoveFactory {
+
+		public static Move getNullMove() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+	}
 	final Board board;
 	final Piece movedPiece;
 	final int destinationCoordinate;
