@@ -18,34 +18,28 @@ public class Rook extends Piece{
 	
 	public Rook(int piecePosition, Alliance pieceAlliance) {
 		super(piecePosition, pieceAlliance, PieceType.ROOK, true);
-		// TODO Auto-generated constructor stub
 	}
 	public Rook(int piecePosition, Alliance pieceAlliance, boolean isFirstMove) {
 		super(piecePosition, pieceAlliance, PieceType.ROOK, isFirstMove);
-		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
 	private static final int[] ALL_MOVES = {8,-8, -1, 1};
-
 	@Override
-	public Collection<Move> findLegalMoves(Board board) {
+	public Collection<Move> calculateLegalMoves(Board board) {
 		List<Move> legalMoves = new ArrayList<>();
 		for(final int candidateCoordinateOffset: ALL_MOVES) {
-			int focusPosition = this.piecePosition;
+			int piecePosition = this.piecePosition;
 		
-			while(BoardUtils.isValidTileCoordinate(focusPosition)) {
-				if(isFirstColumnExclusion(focusPosition, candidateCoordinateOffset)
-						|| isEighthColumnExclusion(focusPosition, candidateCoordinateOffset)) {
+			while(BoardUtils.isValidTilePosition(piecePosition)) {
+				if(isFirstColumnExclusion(piecePosition, candidateCoordinateOffset)
+				|| isEighthColumnExclusion(piecePosition, candidateCoordinateOffset)) {
 					break;
 				}
-			focusPosition += candidateCoordinateOffset; // relook at other moves
+			piecePosition += candidateCoordinateOffset; // relook at other moves
 			}
-			if(BoardUtils.isValidTileCoordinate(focusPosition)) {
-				final Tile candidateDestinationTile = board.getTile(focusPosition);
-				if(!candidateDestinationTile.isOccupied()) {
-					legalMoves.add(new JustMove(board, this, focusPosition));
+			if(BoardUtils.isValidTilePosition(piecePosition)) {
+				final Tile candidateDestinationTile = board.getTile(piecePosition);
+				if(!candidateDestinationTile.isTileOccupied()) {
+					legalMoves.add(new JustMove(board, this, piecePosition));
 					// get an unoccupied tile from the board and add it to the legal move list.
 				}
 				else {
@@ -56,48 +50,40 @@ public class Rook extends Piece{
 					final Alliance pieceAlliance = pieceOnTile.getPieceAlliance();
 				
 					if(this.pieceAlliance != pieceAlliance) {
-						legalMoves.add(new AttackMove(board, this, focusPosition, pieceOnTile));
+						legalMoves.add(new AttackMove(board, this, piecePosition, pieceOnTile));
 					}
 					break;
 				}
 			}
 		}
-
 		return ImmutableList.copyOf(legalMoves);
 	}
-		
+	@Override
+	public String toString() {
+		return PieceType.ROOK.toString();
+	}
 	// edge cases
-	
 	private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
-		
 		return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -1);
-		
 		// on first column
 		// rook can go up, right, down... not left
-		
 	}
 	private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
-		
 		return BoardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == 1);
 		// on first column
 		// rook can go up, left, down... not right
-		
 	}
-
 	@Override
 	public int locationBonus() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	@Override
 	public Piece movePiece(Move move) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Move> calculateLegalMoves(Board board) {
+	public Collection<Move> findLegalMoves(Board board) {
 		// TODO Auto-generated method stub
 		return null;
 	}

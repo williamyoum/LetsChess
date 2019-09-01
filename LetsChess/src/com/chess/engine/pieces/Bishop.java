@@ -17,7 +17,7 @@ public class Bishop extends Piece {
 														// these are the possible moves the bishop can make. 
 														// they are relative to the current position.
 	private static final int[] ALL_MOVES = {-9, -7, 7, 9}; 
-	Bishop(final int piecePosition, final Alliance pieceAlliance) { // this method takes the bishop's position, color.
+	public Bishop(final int piecePosition, final Alliance pieceAlliance) { // this method takes the bishop's position, color.
 		super(piecePosition, pieceAlliance, PieceType.BISHOP, true);
 	}
 	
@@ -25,23 +25,23 @@ public class Bishop extends Piece {
 		super(piecePosition, pieceAlliance, PieceType.BISHOP, isFirstMove);
 	}
 	@Override
-	public Collection<Move> findLegalMoves(Board board) { // this is a collection that uses findLegalMoves to calculate the legal moves
+	public Collection<Move> calculateLegalMoves(Board board) { // this is a collection that uses calculateLegalMoves to calculate the legal moves
 		List<Move> legalMoves = new ArrayList<>();
 	// this is the loop for the whole list of possible legal moves
 		for(final int candidateCoordinateOffset: ALL_MOVES) { // loop through each of the possible moves and validate
-			int focusPosition = this.piecePosition; // focusPosition holds the currPosition
-			while(BoardUtils.isValidTileCoordinate(focusPosition)) { //			
+			int piecePosition = this.piecePosition; // piecePosition holds the currPosition
+			while(BoardUtils.isValidTilePosition(piecePosition)) { //			
 				
-				if(isFirstColumnExclusion(focusPosition, candidateCoordinateOffset) 
-				|| isEighthColumnExclusion(focusPosition, candidateCoordinateOffset)) {
+				if(isFirstColumnExclusion(piecePosition, candidateCoordinateOffset) 
+				|| isEighthColumnExclusion(piecePosition, candidateCoordinateOffset)) {
 					break;
 				}
-				focusPosition += candidateCoordinateOffset;  // make the position + offset become legal move
+				piecePosition += candidateCoordinateOffset;  // make the position + offset become legal move
 				// this is now one of the legal moves
-				if(BoardUtils.isValidTileCoordinate(focusPosition)) {
-					final Tile candidateDestinationTile = board.getTile(focusPosition);
-					if(!candidateDestinationTile.isOccupied()) {
-						legalMoves.add(new JustMove(board, this, focusPosition));
+				if(BoardUtils.isValidTilePosition(piecePosition)) {
+					final Tile candidateDestinationTile = board.getTile(piecePosition);
+					if(!candidateDestinationTile.isTileOccupied()) {
+						legalMoves.add(new JustMove(board, this, piecePosition));
 						// get an unoccupied tile from the board and add it to the legal move list.
 					}
 					else {
@@ -52,7 +52,7 @@ public class Bishop extends Piece {
 						final Alliance pieceAlliance = pieceOnTile.getPieceAlliance();
 					
 						if(this.pieceAlliance != pieceAlliance) {
-							legalMoves.add(new AttackMove(board, this, focusPosition, pieceOnTile));
+							legalMoves.add(new AttackMove(board, this, piecePosition, pieceOnTile));
 						}
 						break;
 					}
@@ -64,7 +64,10 @@ public class Bishop extends Piece {
 		}
 		return ImmutableList.copyOf(legalMoves);
 	}
-	
+	@Override
+	public String toString() {
+		return PieceType.BISHOP.toString();
+	}
 	//edge cases
 	
 	private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
@@ -87,8 +90,9 @@ public class Bishop extends Piece {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public Collection<Move> calculateLegalMoves(Board board) {
+	public Collection<Move> findLegalMoves(Board board) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -23,36 +23,30 @@ import com.google.common.collect.ImmutableList;
 		public Pawn(int piecePosition, Alliance pieceAlliance, boolean isFirstMove) {
 			super(piecePosition, pieceAlliance, PieceType.PAWN, isFirstMove);
 		}
-		
-		
-		
 		private static final int[] ALL_MOVES = {8, 16, 7, 9 }; // is -8 up or down? im assuming the og set the A8 tile as the 0th tile... 
 															  // nvm 0th tile is A1.
-
-		
-		
 		// calculate legal moves   ============================================
 		@Override
-		public Collection<Move> findLegalMoves(Board board) {
+		public Collection<Move> calculateLegalMoves(Board board) {
 			List<Move> legalMoves = new ArrayList<>();
 			for(final int candidateCoordinateOffset: ALL_MOVES) {
-				int focusPosition = this.piecePosition;
-
+				int piecePosition = this.piecePosition;
 				// the pawn does not have edge cases... 
 				// don't forget the 
 /*
-				while(BoardUtils.isValidTileCoordinate(focusPosition)) {
-					if(isFirstColumnExclusion(focusPosition, candidateCoordinateOffset)
-							|| isEighthColumnExclusion(focusPosition, candidateCoordinateOffset)) {
+				while(BoardUtils.isValidTileCoordinate(piecePosition)) {
+					if(isFirstColumnExclusion(piecePosition, candidateCoordinateOffset)
+							|| isEighthColumnExclusion(piecePosition, candidateCoordinateOffset)) {
 						break;
 					}
  */
-				focusPosition += candidateCoordinateOffset; // relook at other moves
-			
-				if(BoardUtils.isValidTileCoordinate(focusPosition)) {
-					final Tile candidateDestinationTile = board.getTile(focusPosition);
-					if(!candidateDestinationTile.isOccupied()) {
-						legalMoves.add(new JustMove(board, this, focusPosition));
+				piecePosition += candidateCoordinateOffset; // relook at other moves
+
+				if(BoardUtils.isValidTilePosition(piecePosition)) {
+					final Tile candidateDestinationTile = board.getTile(piecePosition);
+
+					if(!candidateDestinationTile.isTileOccupied()) {
+						legalMoves.add(new JustMove(board, this, piecePosition));
 						// get an unoccupied tile from the board and add it to the legal move list.
 					}
 					else {
@@ -61,10 +55,10 @@ import com.google.common.collect.ImmutableList;
 						// if the alliance is not equal to the currKnight, this is an attacking move
 						final Piece pieceOnTile = candidateDestinationTile.getPiece();
 						final Alliance pieceAlliance = pieceOnTile.getPieceAlliance();
-						int piecePosition = pieceOnTile.piecePosition;
+						piecePosition = pieceOnTile.piecePosition;
 						// you already have a method for getTile. use it.
 						if((this.pieceAlliance != pieceAlliance) && ((this.piecePosition == piecePosition + 9) || (this.piecePosition == piecePosition + 7))) {
-							legalMoves.add(new AttackMove(board, this, focusPosition, pieceOnTile));
+							legalMoves.add(new AttackMove(board, this, piecePosition, pieceOnTile));
 						}
 						break;
 					}
@@ -73,32 +67,27 @@ import com.google.common.collect.ImmutableList;
 			}
 			return ImmutableList.copyOf(legalMoves);
 	}
-
-
-
+		@Override
+		public String toString() {
+			return PieceType.PAWN.toString();
+		}
 		@Override
 		public int locationBonus() {
 			// TODO Auto-generated method stub
 			return 0;
 		}
-
-
-
 		@Override
 		public Piece movePiece(Move move) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-
-
 		@Override
-		public Collection<Move> calculateLegalMoves(Board board) {
+		public Collection<Move> findLegalMoves(Board board) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
 		// implement pawn promotion
-		
 }
 

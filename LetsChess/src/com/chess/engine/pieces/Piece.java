@@ -18,9 +18,6 @@ public abstract class Piece {
 	protected final int piecePosition;
 	protected final Alliance pieceAlliance; 	// piece will have a color
 	// private final int cachedHashCode;
-	
-	
-	
 	Piece(final int piecePosition, 
 		  final Alliance pieceAlliance,
 		  final PieceType type,
@@ -35,23 +32,18 @@ public abstract class Piece {
 	public PieceType getPieceType() {
         return this.pieceType;
     }
-
     public Alliance getPieceAllegiance() {
         return this.pieceAlliance;
     }
-
     public int getPiecePosition() {
         return this.piecePosition;
     }
-
     public boolean isFirstMove() {
         return this.isFirstMove;
     }
-
     public int getPieceValue() {
         return this.pieceType.getPieceValue();
     }
-
     public abstract int locationBonus();
 
     public abstract Piece movePiece(Move move);
@@ -71,7 +63,6 @@ public abstract class Piece {
         return this.piecePosition == otherPiece.piecePosition && this.pieceType == otherPiece.pieceType &&
                this.pieceAlliance == otherPiece.pieceAlliance && this.isFirstMove == otherPiece.isFirstMove;
     }
-
 /*    @Override
     public int hashCode() {
         return this.cachedHashCode;
@@ -92,8 +83,5 @@ public abstract class Piece {
 	// responsible for finding the legal moves of a piece
 	public abstract Collection<Move> findLegalMoves(final Board board);
 	// we can return a set, or or unspecified collection of moves
-
-
-
 
 }

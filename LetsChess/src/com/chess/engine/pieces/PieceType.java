@@ -2,11 +2,7 @@
  * Source code for enum class PieceType citation:
  * https://github.com/amir650/BlackWidow-Chess/blob/master/src/com/chess/engine/classic/pieces/Piece.java
  */
-
-
-
 package com.chess.engine.pieces;
-
 public enum PieceType {
 	
         PAWN(100, "P") {

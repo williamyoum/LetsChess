@@ -18,7 +18,7 @@ public class Knight extends Piece {
 	//private int isValidTileCoordinate;
 
 	
-	Knight(final int piecePosition, final Alliance pieceAlliance) {
+	public Knight(final int piecePosition, final Alliance pieceAlliance) {
 		super(piecePosition, pieceAlliance, PieceType.KNIGHT, true);
 		// TODO Auto-generated constructor stub
 	}
@@ -29,17 +29,13 @@ public class Knight extends Piece {
 	}
 	
 	@Override
-	public Collection<Move> findLegalMoves(final Board board) {
-		// TODO Auto-generated method stub
-		
-		// loop through all of the candidate options
-		
+	public Collection<Move> calculateLegalMoves(final Board board) {
 		final List<Move> legalMoves = new ArrayList<>();
 		for(final int currentCandidateOffset : ALL_MOVES) {
 			final int candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
 			// if not occupied, legal move.
 			// if occupied, then..
-			if(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {	
+			if(BoardUtils.isValidTilePosition(candidateDestinationCoordinate)) {	
 				if(isFirstColumnExclusion(this.piecePosition, currentCandidateOffset) 
 						|| isSecondColumnExclusion(this.piecePosition, currentCandidateOffset) 
 						|| isSeventhColumnExclusion(this.piecePosition, currentCandidateOffset) 
@@ -49,7 +45,7 @@ public class Knight extends Piece {
 				}
 				
 				final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
-				if(!candidateDestinationTile.isOccupied()) {
+				if(!candidateDestinationTile.isTileOccupied()) {
 					legalMoves.add(new JustMove(board, this, candidateDestinationCoordinate));
 				}
 				else {
@@ -68,7 +64,10 @@ public class Knight extends Piece {
 		}
 		return ImmutableList.copyOf(legalMoves);
 	}
-	
+	@Override
+	public String toString() {
+		return PieceType.KNIGHT.toString();
+	}
 //	
 //	// this you can create in another class
 //	private static boolean isValidTileCoordinate(int coordinate) {
@@ -117,8 +116,9 @@ public class Knight extends Piece {
 		return null;
 	}
 
+
 	@Override
-	public Collection<Move> calculateLegalMoves(Board board) {
+	public Collection<Move> findLegalMoves(Board board) {
 		// TODO Auto-generated method stub
 		return null;
 	}

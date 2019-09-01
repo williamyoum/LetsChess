@@ -28,8 +28,6 @@ public class King extends Piece{
 		this.isCastled = false;
 		this.isKingSideCastlePossible = isKingSideCastlePossible;
 		this.isQueenSideCastlePossible = isQueenSideCastlePossible;
-		
-		// TODO Auto-generated constructor stub
 	}
 	public King(int piecePosition, 
 			    Alliance pieceAlliance,
@@ -37,28 +35,22 @@ public class King extends Piece{
 				boolean isCastled,
 				boolean isKingSideCastlePossible,
 				boolean isQueenSideCastlePossible){
-		
 		super(piecePosition, pieceAlliance, PieceType.KING, isFirstMove);
 		this.isCastled = isCastled;
 		this.isKingSideCastlePossible = isKingSideCastlePossible;
 		this.isQueenSideCastlePossible = isQueenSideCastlePossible;
 	}
-    public boolean isCastled() {
+	public boolean isCastled() {
         return this.isCastled;
     }
-
     public boolean isKingSideCastlePossible() {
         return this.isKingSideCastlePossible;
     }
-
     public boolean isQueenSideCastlePossible() {
         return this.isQueenSideCastlePossible;
     }
-	
-	
-	
 	@Override
-	public Collection<Move> findLegalMoves(Board board) {
+	public Collection<Move> calculateLegalMoves(Board board) {
 		final List<Move> legalMoves = new ArrayList<>();
 		 for (final int currentCandidateOffset : ALL_MOVES) {
 	            if (isFirstColumnExclusion(this.piecePosition, currentCandidateOffset) ||
@@ -66,7 +58,7 @@ public class King extends Piece{
 	                continue;
 	            }
 	            final int candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
-	            if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+	            if (BoardUtils.isValidTilePosition(candidateDestinationCoordinate)) {
 	                final Piece pieceAtDestination = board.getPiece(candidateDestinationCoordinate);
 	                if (pieceAtDestination == null) {
 	                    legalMoves.add(new JustMove(board, this, candidateDestinationCoordinate));
@@ -81,22 +73,23 @@ public class King extends Piece{
 	        }
 		return ImmutableList.copyOf(legalMoves);
 	}
-	
 	@Override
+	public String toString() {
+		return PieceType.KING.toString();
+	}
+/*	@Override
 	public String toString() {
 		return this.pieceType.toString();
 	}
-	
+	*/
 	@Override
 	public int locationBonus() {
-		// TODO Auto-generated method stub
 		return this.pieceAlliance.kingBonus(this.piecePosition);
 	}
-	@Override
+/*	@Override
 	public King movePiece(Move move) {
-		// TODO Auto-generated method stub
-		return new King(this.pieceAlliance, move.getDestinationCoordinate(), false, Move.isCastlingMove(), false, false);
-	}
+		return new King(move.getDestinationCoordinate(), this.pieceAlliance,false, Move.isCastlingMove(), false, false);
+	}*/
 	
 	@Override
 	public boolean equals(final Object other) {
@@ -121,8 +114,7 @@ public class King extends Piece{
 
 	
 	@Override
-	public Collection<Move> calculateLegalMoves(Board board) {
-		// TODO Auto-generated method stub
+	public Collection<Move> findLegalMoves(Board board) {
 		return null;
 	}
 	
@@ -139,4 +131,9 @@ public class King extends Piece{
 					|| (candidateOffset == 9) 
 					|| (candidateOffset == -7);
 		}
+		@Override
+		public Piece movePiece(Move move) {
+			return null;
+		}
+
 }

@@ -14,7 +14,7 @@ import com.chess.engine.board.Move.JustMove;
 import com.google.common.collect.ImmutableList;
 
 public class Queen extends Piece{
-	Queen(final int piecePosition, final Alliance pieceAlliance) {
+	public Queen(final int piecePosition, final Alliance pieceAlliance) {
 		super(piecePosition, pieceAlliance, PieceType.QUEEN, true);
 		// TODO Auto-generated constructor stub
 	}
@@ -25,22 +25,22 @@ public class Queen extends Piece{
 	private static final int[] ALL_MOVES = {8,-8, -1, 1, -9, -7, 7, 9}; // keep in mind, Queen is Rook.java + Bishop.java combined
 
 	@Override
-	public Collection<Move> findLegalMoves(Board board) {
+	public Collection<Move> calculateLegalMoves(Board board) {
 		List<Move> legalMoves = new ArrayList<>();
 		for(final int candidateCoordinateOffset: ALL_MOVES) {
-			int focusPosition = this.piecePosition;
+			int piecePosition = this.piecePosition;
 		
-			while(BoardUtils.isValidTileCoordinate(focusPosition)) {
-				if(isFirstColumnExclusion(focusPosition, candidateCoordinateOffset)
-						|| isEighthColumnExclusion(focusPosition, candidateCoordinateOffset)) {
+			while(BoardUtils.isValidTilePosition(piecePosition)) {
+				if(isFirstColumnExclusion(piecePosition, candidateCoordinateOffset)
+						|| isEighthColumnExclusion(piecePosition, candidateCoordinateOffset)) {
 					break;
 				}
-			focusPosition += candidateCoordinateOffset; // re-look at other moves
+			piecePosition += candidateCoordinateOffset; // re-look at other moves
 			}
-			if(BoardUtils.isValidTileCoordinate(focusPosition)) {
-				final Tile candidateDestinationTile = board.getTile(focusPosition);
-				if(!candidateDestinationTile.isOccupied()) {
-					legalMoves.add(new JustMove(board, this, focusPosition));
+			if(BoardUtils.isValidTilePosition(piecePosition)) {
+				final Tile candidateDestinationTile = board.getTile(piecePosition);
+				if(!candidateDestinationTile.isTileOccupied()) {
+					legalMoves.add(new JustMove(board, this, piecePosition));
 					// get an unoccupied tile from the board and add it to the legal move list.
 				}
 				else {
@@ -50,13 +50,17 @@ public class Queen extends Piece{
 					final Piece pieceOnTile = candidateDestinationTile.getPiece();
 					final Alliance pieceAlliance = pieceOnTile.getPieceAlliance();				
 					if(this.pieceAlliance != pieceAlliance) {
-						legalMoves.add(new AttackMove(board, this, focusPosition, pieceOnTile));
+						legalMoves.add(new AttackMove(board, this, piecePosition, pieceOnTile));
 					}
 					break;
 				}
 			}
 		}
 		return ImmutableList.copyOf(legalMoves);
+	}
+	@Override
+	public String toString() {
+		return PieceType.QUEEN.toString();
 	}
 	// edge cases
 	private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {	
@@ -78,8 +82,9 @@ public class Queen extends Piece{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
-	public Collection<Move> calculateLegalMoves(Board board) {
+	public Collection<Move> findLegalMoves(Board board) {
 		// TODO Auto-generated method stub
 		return null;
 	}
