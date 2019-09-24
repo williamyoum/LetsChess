@@ -1,6 +1,6 @@
 ==== will.youm@gmail.com ====
 
-Learning how to build a chess app
+chess console engine
 
 So far I've gotten through defining the tiles, board, pieces and knight moves for java.
 
